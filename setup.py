@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="campbell-logger" # Replace with your own username
+    name="python-campbell-logger",
     version="0.0.1",
     author="Oliver Archner",
     author_email="oliver.archner@uni-bayreuth.de",
