@@ -110,6 +110,10 @@ class Logger():
             
 
 class FrameLogger(Logger):
+    """
+        DatFrame Extension to campell.Logger 
+        All frame read methods return pandas DataFrame objects 
+    """
     def __init__(self,url,user="anonymous",password="",timeZone="UTC"):
         super().__init__(url,user,password)
         self.tz = timezone(timeZone)
