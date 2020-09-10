@@ -38,6 +38,11 @@ l = FrameLogger("http://cr3000",timeZone="UTC")
 data = l.frameBackfill('dl:test',120)
 ```
 
+For more details and running examples see: 
+- [Workbook](docs/logger.ipynb)
+- [Logger bridge](docs/logger_bridge.py)
+- [FrameLogger bridge](docs/logger_bridge_frame.py)
+
 ## Installation 
 Install the package by a git clone request followed by a run of setup.py:
 ``` 
