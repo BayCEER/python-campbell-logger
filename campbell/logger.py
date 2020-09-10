@@ -68,7 +68,7 @@ class Logger():
         @param format: response format html|json|toa5|tob1|xml
         """
         since = datetime.strftime(date,self.iso_timestamp) 
-        r = requests.get(self.url,"?command=dataquery&format={}}&uri={}&mode={}&p1={}".format(format, uri,"since-time",since),auth=self.auth)
+        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format, uri,"since-time",since),auth=self.auth)
         if format == 'json':
             return r.json()
         else:

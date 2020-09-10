@@ -1,5 +1,4 @@
-# Sample to read a campbell logger table 
-# and push the data to a BayEOS Gateway
+# Sample to read a campbell logger table and push the data to a BayEOS Gateway
 # Oliver Archner
 # 2020-09-09
 
@@ -7,7 +6,7 @@ from time import sleep
 from bayeosgatewayclient import BayEOSWriter, BayEOSSender
 import tempfile
 from os import path
-from campbell.logger import CrLogger
+from campbell.logger import Logger
 from pytz import timezone
 import pytz 
 from datetime import datetime
@@ -15,21 +14,22 @@ from datetime import datetime
 # Please adapt the following variables
 GATEWAY_URL = 'http://debian/gateway/frame/saveFlat'
 LOGGER_URL = "http://cr3000"
-LOGGER_TABLE = "avg_control_1min"
+LOGGER_TABLE = "avg_control"
 LOGGER_TIMEZONE = 'Etc/GMT-1'
 LOGGER_NAME = "CR3000"
-BACKFILL_SECS = 3600*24
+BACKFILL_SECS = 3600
 SLEEP_SECS = 5
+
 
 # Gateway Client
 path = path.join(tempfile.gettempdir(),"{}-data".format(LOGGER_NAME)) 
 writer = BayEOSWriter(path)
 writer.save_msg('Writer started.')
-sender = BayEOSSender(path, LOGGER_NAME, GATEWAY_URL)
+sender = BayEOSSender(path, "{}/{}".format(LOGGER_NAME,LOGGER_TABLE), GATEWAY_URL)
 sender.start()
 
 # Cambell logger 
-logger = CrLogger(LOGGER_URL)
+logger = Logger(LOGGER_URL)
 lastRec = None
 timeZone = timezone(LOGGER_TIMEZONE)
 
