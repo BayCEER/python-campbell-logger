@@ -6,7 +6,7 @@ from time import sleep
 from bayeosgatewayclient import BayEOSWriter, BayEOSSender
 import tempfile
 from os import path
-from campbell.logger import Logger
+from campbell.logger import FrameLogger
 from pytz import timezone
 import pytz 
 from datetime import datetime
@@ -29,26 +29,24 @@ sender = BayEOSSender(path, "{}/{}".format(LOGGER_NAME,LOGGER_TABLE), GATEWAY_UR
 sender.start()
 
 # Cambell logger 
-logger = Logger(LOGGER_URL)
+logger = FrameLogger(LOGGER_URL,timeZone=LOGGER_TIMEZONE)
 lastRec = None
 timeZone = timezone(LOGGER_TIMEZONE)
 
 while True:
     if lastRec is None:
         print("Initial import")
-        data = logger.dataBackfill("dl:{}".format(LOGGER_TABLE),BACKFILL_SECS)
+        df = logger.frameBackfill("dl:{}".format(LOGGER_TABLE),BACKFILL_SECS)
     else:
         print("Delta import")
-        data = logger.dataSinceRecord("dl:{}".format(LOGGER_TABLE),lastRec)
-    labels = [field['name'] for field in data['head']['fields'] if field['type'] == 'xsd:float']
+        df = logger.frameSinceRecord("dl:{}".format(LOGGER_TABLE),lastRec)
     n = 0
-    for rec in data['data']: 
+    for ts, row in df.iterrows():       
         values = {}
-        for i, label in enumerate(labels):
-            values[label] = rec['vals'][i]
-        dt = timeZone.localize(datetime.strptime(rec['time'],'%Y-%m-%dT%H:%M:%S'))
-        writer.save(values=values,value_type=0x61,timestamp=dt.timestamp()) 
-        lastRec= rec['no']
+        for col, value in row.items():
+            values[col[0]] = value
+        writer.save(values=values,value_type=0x61,timestamp=ts.timestamp()) 
+        lastRec=int(values['RECORD'])
         n = n + 1
     print("{} records fetched. Last record:{}".format(n, lastRec))
     writer.flush()
