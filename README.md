@@ -34,14 +34,14 @@ Sample usage:
 ```python
 from campbell.logger import FrameLogger
 l = FrameLogger("http://cr3000",timeZone="UTC")
-# Gets all records stored since 120 secs as a Pandas DataFrame
+# Get all records stored since 120 secs as a Pandas DataFrame
 data = l.frameBackfill('dl:test',120)
 ```
 
 For more details and running examples see: 
 - [Workbook](docs/logger.ipynb)
-- [Logger bridge](docs/logger_bridge.py)
-- [FrameLogger bridge](docs/logger_bridge_frame.py)
+- [Logger bridge sample](docs/logger_bridge.py)
+- [FrameLogger bridge sample](docs/logger_bridge_frame.py)
 
 ## Installation 
 Install the package by a git clone request followed by a run of setup.py:
