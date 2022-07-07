@@ -1,0 +1,8 @@
+Package: [[name]]
+Version: [[version]]
+Section: python
+Priority: optional
+Architecture: all
+Depends: python3 (>=3.9), python3-requests
+Description: Python
+Maintainer: oliver.archner@uni-bayreuth.de

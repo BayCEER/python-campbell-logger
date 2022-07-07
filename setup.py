@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="python-campbell-logger",
-    version="1.0.0",
+    version="1.1.0",
     author="Oliver Archner",
     author_email="oliver.archner@uni-bayreuth.de",
     description="Client for Campbell Scientific loggers",
@@ -18,6 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: GPL License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
-    install_requires=['requests','pytz','pandas'] 
+    python_requires='>=3.9',
+    install_requires=['requests'] 
 )

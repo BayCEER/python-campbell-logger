@@ -1,10 +1,10 @@
 ## Python Campbell Logger Client
 
-A library to communicate with Campbell Scientific CR loggers over http. The library was developed on base of the Campbell Scientific Web Interface documentation and has been tested with CR3000 loggers. Other logger types may work. Two main logger classes are provided to communicate with the logger.
+A library to communicate with Campbell Scientific CR loggers over http. The library was developed on base of the Campbell Scientific Web Interface documentation and has been tested with CR3000 loggers. Other logger types may work. A logger classes is provided to communicate with the logger.
 
-### 1. Class Logger
-Base class to communicate with the logger. Sample usage:
 ```python
+# Sample script to access campbell logger
+
 from campbell.logger import Logger
 from datetime import timedelta
 
@@ -16,48 +16,58 @@ tabs = l.getTableUris()
 # Get the 10 most recent records of the first table as a dictionary
 data = l.dataMostRecent(tabs[0],10)
 
-# Get all records of the first table since a specific time  
+# Get all records of the first table since a specific time
 clock = l.getClock()
 data = l.dataSinceTime(tabs[0], clock - timedelta(seconds=120))
 
 # Get all records of the first table with record nr >= 10
 data = l.dataSinceRecord(tabs[0],10)
 
-# Get all records stored since the last 2 minutes 
+# Get all records stored since the last 2 minutes
 data = l.dataBackfill(tabs[0],120)
 ```
 
-### 2. Class FrameLogger
-Extended version of class campbell.Logger. Provides query methods returning values of  type [Pandas DataFrame](https://pandas.pydata.org/docs/reference/frame.html). Those methods are named with a frame prefix.
+## Installation
 
-Sample usage:
-```python
-from campbell.logger import FrameLogger
-l = FrameLogger("http://cr3000",timeZone="UTC")
-# Get all records stored since 120 secs as a Pandas DataFrame
-data = l.frameBackfill('dl:test',120)
-```
+### Installing on Linux
 
-For more details and running examples see: 
-- [Workbook](docs/logger.ipynb)
-- [Logger bridge sample](docs/logger_bridge.py)
-- [FrameLogger bridge sample](docs/logger_bridge_frame.py)
+- Install basic tools for installation  
+  `apt-get update`  
+  `apt-get install wget gnupg`
+- Import the repository key  
+  `wget -O - http://www.bayceer.uni-bayreuth.de/repos/apt/conf/bayceer_repo.gpg.key |apt-key add -`
+- Add the BayCEER Debian repository  
+  `echo "deb http://www.bayceer.uni-bayreuth.de/repos/apt/debian $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/bayceer.list`
+- Update your repository cache  
+  `apt-get update`
+- Install the package  
+  `apt-get install python3-campbell-logger`
 
-## Installation 
+### Installation on Windows
+
 Install the package by a git clone request followed by a run of setup.py:
-``` 
+
+```
 git clone https://github.com/BayCEER/python-campbell-logger.git
 cd python-campbell-logger
 python setup.py install
 ```
 
-## Authors 
-* **Oliver Archner** - *Developer* - [BayCEER, University of Bayreuth](https://www.bayceer.uni-bayreuth.de)
+## Authors
 
-## Version History 
+- **Oliver Archner** - _Developer_ - [BayCEER, University of Bayreuth](https://www.bayceer.uni-bayreuth.de)
+
+## Version History
+
+### Version 1.1, June 6, 2022
+
+- New Debian package
+- Droppe FrameLogger to reduce dependecies 
 
 ### Version 1.0, Sep 9, 2020
-- Initial release 
+
+- Initial release
 
 ## License
+
 GNU LESSER GENERAL PUBLIC LICENSE

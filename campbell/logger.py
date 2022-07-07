@@ -1,11 +1,5 @@
-
-import logging
-from datetime import datetime, timedelta
-from pytz import timezone
-import pytz
+from datetime import datetime
 import requests 
-import pandas as pd
-from io import StringIO
 
 class Logger():
     """
@@ -51,7 +45,7 @@ class Logger():
     def dataMostRecent(self,uri,records,format='json'):
         """Returns the data from the most recent number of records. 
         @param uri: table uri including prefix
-        @param resords: number of records  
+        @param records: number of records  
         @param format: response format html|json|toa5|tob1|xml
         """
         r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"most-recent",records),auth=self.auth)
@@ -109,31 +103,7 @@ class Logger():
             return r.text
             
 
-class FrameLogger(Logger):
-    """
-        DatFrame Extension to campell.Logger 
-        All frame read methods return pandas DataFrame objects 
-    """
-    def __init__(self,url,user="anonymous",password="",timeZone="UTC"):
-        super().__init__(url,user,password)
-        self.tz = timezone(timeZone)
-        self.parser = lambda t: self.tz.localize(datetime.strptime(t,"%Y-%m-%d %H:%M:%S"))
-    
-    def frameMostRecent(self,uri,records):
-        return self.__frame(self.dataMostRecent(uri,records,format='toa5'))
 
-    def frameSinceTime(self,uri,date):
-        return self.__frame(self.dataSinceTime(uri, date,format='toa5'))
-        
-    def frameSinceRecord(self,uri,record):
-        return self.__frame(self.dataSinceRecord(uri,record,format='toa5'))
-    
-    def frameBackfill(self,uri,seconds): 
-        return  self.__frame(self.dataBackfill(uri,seconds,format='toa5'))
-
-    def __frame(self,data):
-        return pd.read_csv(StringIO(data),header=[1,2,3],sep=',',na_values='NAN',parse_dates=True,index_col=0, date_parser=self.parser)
-          
             
 
             

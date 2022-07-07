@@ -3,8 +3,8 @@ Created on 2020-09-08
 @author: oliver
 '''
 import unittest
-from campbell.logger import Logger, FrameLogger
-from datetime import datetime, timedelta
+from campbell.logger import Logger
+from datetime import timedelta
 import configparser
 
 
@@ -51,15 +51,6 @@ class LoggerTest(ConfigTest):
         print(self.dev.dataBackfill(self.URI,120))
 
 
-class FrameLoggerTest(ConfigTest):
-    
-    def setUp(self):
-        super().setUp()
-        self.dev = FrameLogger(url=self.URL,user=self.USER,password=self.PASSWORD,timeZone="Etc/GMT-1")
-    
-    def testFrameBackFill(self):
-        frame = self.dev.frameBackfill(self.URI,120)
-        
 
 if __name__ == "__main__":
     unittest.main()
