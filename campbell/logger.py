@@ -15,16 +15,17 @@ class Logger():
     symbol_scalar = 8
 
       
-    def __init__(self,url,user="anonymous",password=""):
+    def __init__(self,url,user="anonymous",password="", timeout=10):
         self.url = url
         self.auth=(user, password)
+        self.timeout = timeout
             
     def getClock(self):
         """
         Get Logger clock information
         @returns current logger time as date without timezone
         """
-        r = requests.get(self.url,"?command=ClockCheck&format=json",auth=self.auth)
+        r = requests.get(self.url,"?command=ClockCheck&format=json",auth=self.auth,timeout=self.timeout)
         return datetime.strptime(str(r.json()['time']),self.iso_timestamp)
 
     def getSymbols(self):
@@ -32,7 +33,7 @@ class Logger():
         Get all symbol details from logger
         @returns list of symbols 
         """
-        r = requests.get(self.url,"?command=BrowseSymbols&format=json",auth=self.auth)
+        r = requests.get(self.url,"?command=BrowseSymbols&format=json",auth=self.auth,timeout=self.timeout)
         return r.json()['symbols']
 
     def getTableUris(self):
@@ -48,7 +49,7 @@ class Logger():
         @param records: number of records  
         @param format: response format html|json|toa5|tob1|xml
         """
-        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"most-recent",records),auth=self.auth)
+        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"most-recent",records),auth=self.auth,timeout=self.timeout)
         if format == 'json':
             return r.json()
         else:
@@ -62,7 +63,7 @@ class Logger():
         @param format: response format html|json|toa5|tob1|xml
         """
         since = datetime.strftime(date,self.iso_timestamp) 
-        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format, uri,"since-time",since),auth=self.auth)
+        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format, uri,"since-time",since),auth=self.auth,timeout=self.timeout)
         if format == 'json':
             return r.json()
         else:
@@ -76,7 +77,7 @@ class Logger():
         @param record: record number 
         @param format: response format html|json|toa5|tob1|xml
         """
-        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"since-record",record),auth=self.auth)
+        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"since-record",record),auth=self.auth,timeout=self.timeout)
         if format == 'json':
             return r.json()
         else:
@@ -96,7 +97,7 @@ class Logger():
         @param seconds: interval in number of seconds 
         @param format: response format html|json|toa5|tob1|xml
         """
-        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"Backfill",seconds),auth=self.auth)
+        r = requests.get(self.url,"?command=dataquery&format={}&uri={}&mode={}&p1={}".format(format,uri,"Backfill",seconds),auth=self.auth,timeout=self.timeout)
         if format == 'json':
             return r.json()
         else:   

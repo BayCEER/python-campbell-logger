@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="python-campbell-logger",
-    version="1.1.0",
+    version="1.2.0",
     author="Oliver Archner",
     author_email="oliver.archner@uni-bayreuth.de",
     description="Client for Campbell Scientific loggers",

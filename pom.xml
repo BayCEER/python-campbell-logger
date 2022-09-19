@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.unibayreuth.bayceer</groupId>
     <artifactId>python3-campbell-logger</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <properties>
         <name>python-campbell-logger</name>
         <release>bullseye</release>

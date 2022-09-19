@@ -9,7 +9,7 @@ from campbell.logger import Logger
 from datetime import timedelta
 
 l = Logger("http://cr3000")
-
+d
 # Get all table uris
 tabs = l.getTableUris()
 
@@ -59,10 +59,14 @@ python setup.py install
 
 ## Version History
 
+### Version 1.2, Sept 19, 2022
+
+- Timeout parameter added for all requests
+
 ### Version 1.1, June 6, 2022
 
 - New Debian package
-- Droppe FrameLogger to reduce dependecies 
+- Dropped FrameLogger to reduce dependecies
 
 ### Version 1.0, Sep 9, 2020
 
