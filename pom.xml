@@ -2,10 +2,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.unibayreuth.bayceer</groupId>
     <artifactId>python3-campbell-logger</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <properties>
-        <name>python-campbell-logger</name>
-        <release>bullseye</release>
+        <name>python-campbell-logger</name>        
     </properties>
     <build>
         <plugins>
@@ -20,7 +19,7 @@
                             <goal>jdeb</goal>
                         </goals>
                         <configuration>
-                            <deb>${project.build.directory}/${project.artifactId}-${project.version}+${release}.deb</deb>
+                            <deb>${project.build.directory}/${project.artifactId}-${project.version}.deb</deb>
                             <controlDir>${project.basedir}/deb/control</controlDir>
                             <verbose>false</verbose>
                             <dataSet>

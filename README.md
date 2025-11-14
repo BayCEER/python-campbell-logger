@@ -45,12 +45,11 @@ data = l.dataBackfill(tabs[0],120)
 
 ### Installation on Windows
 
-Install the package by a git clone request followed by a run of setup.py:
-
 ```
 git clone https://github.com/BayCEER/python-campbell-logger.git
 cd python-campbell-logger
-python setup.py install
+python -m pip install .
+
 ```
 
 ## Authors
@@ -58,6 +57,12 @@ python setup.py install
 - **Oliver Archner** - _Developer_ - [BayCEER, University of Bayreuth](https://www.bayceer.uni-bayreuth.de)
 
 ## Version History
+
+### Version 1.2.1, Nov 14, 2025
+
+- Installation changed to pip
+- Demo changed
+- Package name without release
 
 ### Version 1.2, Sept 19, 2022
 
