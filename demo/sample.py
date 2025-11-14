@@ -1,7 +1,7 @@
 from campbell.logger import Logger
 from datetime import timedelta
 
-l = Logger("http://demo")
+l = Logger("http://")
 
 # Get all table uris
 tabs = l.getTableUris()
